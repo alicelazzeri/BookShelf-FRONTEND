@@ -1,5 +1,7 @@
+import { Spinner } from "react-bootstrap";
+
 const LoadingSpinner = () => {
-  return;
+  return <Spinner className="loadingSpinner" animation="grow" />;
 };
 
 export default LoadingSpinner;

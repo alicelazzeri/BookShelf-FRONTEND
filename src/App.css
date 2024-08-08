@@ -21,6 +21,10 @@ body {
   background-color: #fefefe;
 }
 
+.loadingSpinner {
+  color: #2f906a;
+}
+
 /* Scroll to top button */
 
 .scrollBtn {
@@ -56,7 +60,6 @@ body {
   right: 0;
   z-index: 999;
   font-family: "Work Sans", Arial, Helvetica, sans-serif;
-  /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);*/
   background-color: #fbf2da;
 }
 
@@ -69,17 +72,32 @@ body {
   padding: 0;
 }
 
-.navLink {
+.navLink,
+.loginLink {
   text-decoration: none;
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 1.2rem;
+  font-weight: 400;
   color: #152b3c;
-  font-family: "Crimson Text", Georgia, "Times New Roman", Times, serif;
+  font-family: "Work Sans", Arial, Helvetica, sans-serif;
   transition: all 0.5s ease-in-out;
 }
 
 .navLink:hover {
+  color: #fefefe;
+}
+
+.loginLink:hover,
+.loginLink:active {
   color: #d46240;
+}
+
+.dropdownItem {
+  transition: all 0.5s ease;
+}
+
+.dropdownItem:hover,
+.dropdownItem:active {
+  background-color: #d46240;
 }
 
 .dropdownMenu {
@@ -114,6 +132,15 @@ body {
 .navbarOffcanvas {
   background-color: #fbf2da;
 }
+
+.dropdownMenu {
+  left: 100;
+}
+
+.logoutBtn {
+  cursor: pointer;
+}
+
 /* Footer */
 
 #footer {
@@ -149,7 +176,9 @@ body {
   font-size: 1.5rem;
 }
 
-.homeBtn {
+.homeBtn,
+.loginBtn,
+.registerBtn {
   font-family: "Work Sans", Arial, Helvetica, sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
@@ -163,7 +192,9 @@ body {
   transition: all 0.5s ease;
 }
 
-.homeBtn:hover {
+.homeBtn:hover,
+.loginBtn:hover,
+.registerBtn:hover {
   cursor: pointer;
   background-color: #fefefe;
   color: #d46240;
@@ -204,6 +235,81 @@ body {
 .animation {
   width: 200px;
   height: 200px;
+}
+
+/* Login page */
+
+.loginTitle {
+  font-family: "Work Sans", Georgia, "Times New Roman", Times, serif;
+  font-weight: 300;
+  color: #152b3c;
+  font-size: 4rem;
+}
+
+.italicSpan {
+  font-style: italic;
+  font-weight: 600;
+  color: #d46240;
+}
+
+.inputField {
+  font-family: "Work Sans", Arial, Helvetica, sans-serif;
+  width: 100%;
+  max-width: 600px;
+  padding-left: 15px;
+  height: 50px;
+  margin-top: 20px;
+  font-size: 1.3rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.userCard {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.userCard:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.logoPic {
+  width: 50px;
+  height: 50px;
+}
+
+.cardTitle {
+  font-family: "Work Sans", Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 1.5rem;
+  color: #152b3c;
+}
+/* 
+.userBadge {
+  font-family: "Work Sans", Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 1rem;
+  background-color: #2f9069aa !important;
+} */
+
+.avatarPic {
+  width: 100px;
+  height: 100px;
+}
+
+.userName {
+  font-family: "Work Sans", Arial, Helvetica, sans-serif;
+  font-size: 1.7rem;
+  font-weight: 400;
+  color: #d46240;
+}
+
+.userEmail {
+  font-size: 1.1rem;
 }
 
 /* Mobile */

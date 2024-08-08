@@ -2,8 +2,11 @@
 import { Col, Container, Row } from "react-bootstrap";
 import { ImQuotesLeft } from "react-icons/im";
 import BookAnimation from "./BookAnimation";
+import { useNavigate } from "react-router-dom";
 
 const Homepage = () => {
+  const navigate = useNavigate();
+
   return (
     <Container className="text-center">
       <h1 className="homeTitle mt-5 mb-3">
@@ -31,6 +34,16 @@ const Homepage = () => {
             updating your collection, or diving into book details, BookShelf helps you keep track of your literary
             journey. <br /> Enjoy!
           </p>
+          <div className="text-center mt-3">
+            <button
+              className="loginBtn"
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              Login to your account
+            </button>
+          </div>
           <BookAnimation />
         </div>
       </Row>

@@ -7,20 +7,27 @@ import Homepage from "./components/Homepage";
 import ScrollToTop from "./components/ScrollToTop";
 import "./App.css";
 import TopScrollBtn from "./components/TopScrollBtn";
+import { useSelector } from "react-redux";
+import LoadingSpinner from "./components/LoadingSpinner";
 import LoginPage from "./components/LoginPage";
+import BooksList from "./components/BooksList";
 import BookDetail from "./components/BookDetail";
 
 const App = () => {
+  const isLoading = useSelector(state => state.loading.isLoading);
+
   return (
     <div className="App">
+      {isLoading && <LoadingSpinner />}
       <BrowserRouter>
         <ScrollToTop />
         <BookShelfNavbar />
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/books/:id" element={<BookDetail />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/user/:userId/books" element={<BooksList />} />
+          <Route path="/book/:id" element={<BookDetail />} />
         </Routes>
         <BookShelfFooter />
       </BrowserRouter>
