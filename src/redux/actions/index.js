@@ -11,6 +11,8 @@ export const SET_USER = "SET_USER";
 export const CLEAR_USER = "CLEAR_USER";
 export const GET_USERS_SUCCESS = "GET_USERS_SUCCESS";
 export const GET_USERS_FAILURE = "GET_USERS_FAILURE";
+export const ADD_USER_SUCCESS = "ADD_USER_SUCCESS";
+export const ADD_USER_FAILURE = "ADD_USER_FAILURE";
 
 // Books
 export const GET_BOOKS_SUCCESS = "GET_BOOKS_SUCCESS";
@@ -35,6 +37,8 @@ export const setUser = user => ({ type: SET_USER, payload: user });
 export const clearUser = () => ({ type: CLEAR_USER });
 export const getUsersSuccess = users => ({ type: GET_USERS_SUCCESS, payload: users });
 export const getUsersFailure = error => ({ type: GET_USERS_FAILURE, payload: error });
+export const addUserSuccess = user => ({ type: ADD_USER_SUCCESS, payload: user });
+export const addUserFailure = error => ({ type: ADD_USER_FAILURE, payload: error });
 
 // Books
 export const getBooksSuccess = books => ({ type: GET_BOOKS_SUCCESS, payload: books });
@@ -50,6 +54,7 @@ export const deleteBookFailure = error => ({ type: DELETE_BOOK_FAILURE, payload:
 
 // THUNKS
 
+// Users
 // Fetch all users
 export const fetchAllUsers = () => async dispatch => {
   dispatch(startLoading());
@@ -64,6 +69,28 @@ export const fetchAllUsers = () => async dispatch => {
   }
 };
 
+// Add new user
+export const addUser = user => async dispatch => {
+  dispatch(startLoading());
+  try {
+    const response = await fetch(`${API}/users`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+    if (!response.ok) throw new Error("Failed to add user");
+    const newUser = await response.json();
+    dispatch(addUserSuccess(newUser));
+  } catch (error) {
+    dispatch(addUserFailure(error.message));
+  } finally {
+    dispatch(stopLoading());
+  }
+};
+
+// Books
 // Fetch all books
 export const fetchBooks = () => async dispatch => {
   dispatch(startLoading());

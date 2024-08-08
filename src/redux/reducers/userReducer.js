@@ -1,4 +1,11 @@
-import { GET_USERS_SUCCESS, GET_USERS_FAILURE, SET_USER, CLEAR_USER } from "../actions/index.js";
+import {
+  GET_USERS_SUCCESS,
+  GET_USERS_FAILURE,
+  SET_USER,
+  CLEAR_USER,
+  ADD_USER_SUCCESS,
+  ADD_USER_FAILURE,
+} from "../actions/index.js";
 
 const initialState = {
   users: [],
@@ -16,6 +23,10 @@ const userReducer = (state = initialState, action) => {
       return { ...state, currentUser: action.payload };
     case CLEAR_USER:
       return { ...state, currentUser: null };
+    case ADD_USER_SUCCESS:
+      return { ...state, users: [...state.users, action.payload] };
+    case ADD_USER_FAILURE:
+      return { ...state, error: action.payload };
     default:
       return state;
   }

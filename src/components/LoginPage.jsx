@@ -1,9 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser, fetchAllUsers } from "../redux/actions/index.js";
+import { setUser, fetchAllUsers, addUser } from "../redux/actions/index.js";
 import { useNavigate } from "react-router-dom";
-import { Card, Container } from "react-bootstrap";
+import { Card, Container, Modal, Button, Form } from "react-bootstrap";
 import logo from "../assets/images/logo.png";
 
 const LoginPage = () => {
@@ -11,6 +11,14 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const users = useSelector(state => state.user.users);
   const [searchTerm, setSearchTerm] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [newUser, setNewUser] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    avatarUrl: "",
+  });
 
   useEffect(() => {
     dispatch(fetchAllUsers());
@@ -21,7 +29,15 @@ const LoginPage = () => {
     navigate(`/user/${user.id}/books`);
   };
 
-  const filteredUsers = users.filter(user => user.firstName.toLowerCase().includes(searchTerm.toLowerCase()));
+  const handleAddUser = () => {
+    dispatch(addUser(newUser));
+    setShowModal(false);
+  };
+
+  const filteredUsers = users.filter(user => {
+    const fullName = `${user.firstName} ${user.lastName}`.toLowerCase();
+    return fullName.includes(searchTerm.toLowerCase());
+  });
 
   return (
     <Container>
@@ -45,7 +61,9 @@ const LoginPage = () => {
       </div>
       <div className="d-flex flex-column justify-content-center align-items-center gap-2 mb-4">
         <p className="mb-0">Don't have an account yet? </p>
-        <button className="registerBtn">Add new user</button>
+        <Button className="registerBtn" onClick={() => setShowModal(true)}>
+          Add new user
+        </Button>
       </div>
       <hr />
       <div className="mb-5">
@@ -57,7 +75,6 @@ const LoginPage = () => {
                 <h6 className="cardTitle mb-0">
                   <span className="orangeSpan">Book</span>Shelf
                 </h6>
-                {/* <Badge className="userBadge"> User #{user.id}</Badge> */}
               </div>
             </Card.Header>
             <Card.Body>
@@ -77,6 +94,60 @@ const LoginPage = () => {
           </Card>
         ))}
       </div>
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header className="modalHeader" closeButton>
+          <Modal.Title className="modalTitle">New User</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group controlId="formFirstName" className="mb-3">
+              <Form.FloatingLabel className="modalInput" label="First Name">
+                <Form.Control
+                  type="text"
+                  placeholder="Enter first name"
+                  value={newUser.firstName}
+                  onChange={e => setNewUser({ ...newUser, firstName: e.target.value })}
+                />
+              </Form.FloatingLabel>
+            </Form.Group>
+            <Form.Group controlId="formLastName" className="mb-3">
+              <Form.FloatingLabel className="modalInput" label="Last Name">
+                <Form.Control
+                  type="text"
+                  placeholder="Enter last name"
+                  value={newUser.lastName}
+                  onChange={e => setNewUser({ ...newUser, lastName: e.target.value })}
+                />
+              </Form.FloatingLabel>
+            </Form.Group>
+            <Form.Group controlId="formEmail" className="mb-3">
+              <Form.FloatingLabel className="modalInput" label="Email">
+                <Form.Control
+                  type="email"
+                  placeholder="Enter email"
+                  value={newUser.email}
+                  onChange={e => setNewUser({ ...newUser, email: e.target.value })}
+                />
+              </Form.FloatingLabel>
+            </Form.Group>
+            <Form.Group controlId="formPassword" className="mb-3">
+              <Form.FloatingLabel className="modalInput" label="Password">
+                <Form.Control
+                  type="password"
+                  placeholder="Enter password"
+                  value={newUser.password}
+                  onChange={e => setNewUser({ ...newUser, password: e.target.value })}
+                />
+              </Form.FloatingLabel>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <button className="saveBtn" onClick={handleAddUser}>
+            Add New User
+          </button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 };

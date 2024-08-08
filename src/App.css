@@ -288,13 +288,6 @@ body {
   font-size: 1.5rem;
   color: #152b3c;
 }
-/* 
-.userBadge {
-  font-family: "Work Sans", Arial, Helvetica, sans-serif;
-  font-weight: 300;
-  font-size: 1rem;
-  background-color: #2f9069aa !important;
-} */
 
 .avatarPic {
   width: 100px;
@@ -310,6 +303,42 @@ body {
 
 .userEmail {
   font-size: 1.1rem;
+}
+
+.modalHeader {
+  background-color: #fbf2da;
+}
+
+.modalTitle {
+  font-family: "Crimson Text", Georgia, "Times New Roman", Times, serif;
+  font-size: 2rem !important;
+}
+
+.modalInput {
+  font-family: "Work Sans", Arial, Helvetica, sans-serif;
+  color: #152b3c;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.saveBtn {
+  font-family: "Work Sans", Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  border: none;
+  background-color: #2f906a;
+  color: #fefefe;
+  padding-block: 0.7rem;
+  padding-inline: 1.3rem;
+  border-radius: 2px;
+  transition: all 0.5s ease;
+}
+
+.saveBtn:hover {
+  cursor: pointer;
+  background-color: #fefefe;
+  color: #2f906a;
+  border: 2px solid #2f906a;
 }
 
 /* Mobile */
