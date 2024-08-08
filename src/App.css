@@ -345,6 +345,49 @@ body {
     font-size: 1.2rem;
     margin-inline: 1.2rem;
   }
+
+  .inputField {
+    font-size: 1.2rem;
+    height: 40px;
+  }
+
+  .loginTitle {
+    font-size: 3rem;
+  }
+
+  .logoPic {
+    width: 30px;
+    height: 30px;
+  }
+
+  .cardTitle {
+    font-size: 1.3rem;
+  }
+
+  .avatarPic {
+    width: 70px;
+    height: 70px;
+  }
+
+  .dataContainer {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    margin-left: 0 !important;
+  }
+  .contactsContainer {
+    align-items: center !important;
+    margin-left: 0 !important;
+  }
+
+  .userName {
+    margin-top: 0.5rem;
+    font-size: 1.5rem;
+  }
+
+  .userEmail {
+    font-size: 1rem;
+  }
 }
 
 /* Tablet */

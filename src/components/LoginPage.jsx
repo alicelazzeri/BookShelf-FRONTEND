@@ -29,7 +29,7 @@ const LoginPage = () => {
         <h1 className="loginTitle my-4">
           Welcome to <span className="orangeSpan">Book</span>Shelf
         </h1>
-        <p className="homeBody">
+        <p className="homeBody mb-0">
           Select your user from the list below or search by name or email to log in. <br /> If you don't have an
           account, click on the <span className="italicSpan">Add new user</span> button to create one.
         </p>
@@ -61,9 +61,9 @@ const LoginPage = () => {
               </div>
             </Card.Header>
             <Card.Body>
-              <div className="d-flex flex-row align-items-center my-2 ms-3">
+              <div className="d-flex flex-row align-items-center my-2 ms-3 dataContainer">
                 <img src={user.avatarUrl} className="rounded-circle avatarPic" alt="User Avatar" />
-                <div className="d-flex flex-column align-items-start ms-4">
+                <div className="d-flex flex-column align-items-start ms-4 contactsContainer">
                   <Card.Title className="userName">
                     {user.firstName} {user.lastName}
                   </Card.Title>
