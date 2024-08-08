@@ -1,42 +1,247 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* App fonts */
+
+@import url("https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
+/* General CSS */
+
+* {
+  box-sizing: border-box;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+html {
+  scroll-behavior: smooth;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+p {
+  font-family: "Crimson Text", Georgia, "Times New Roman", Times, serif;
+}
+
+body {
+  background-color: #fefefe;
+}
+
+/* Scroll to top button */
+
+.scrollBtn {
+  position: fixed;
+  bottom: 16px;
+  right: 10px;
+  z-index: 99;
+  font-size: 2.5rem;
+  border: none;
+  outline: none;
+  color: #d46240;
+  border-radius: 30px;
+  background-color: transparent;
+  transition: color 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
+}
+
+.scroll-to-top-button.visible {
+  opacity: 1;
+}
+
+.scroll-to-top-button.hidden {
+  opacity: 0;
+}
+
+/* Navbar */
+
+#navBar {
+  width: 100%;
+  height: 130px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  font-family: "Work Sans", Arial, Helvetica, sans-serif;
+  /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);*/
+  background-color: #fbf2da;
+}
+
+#navbarLogo {
+  margin-inline: 5px;
+}
+
+.navbarBrand {
+  font-size: 1.5rem;
+  padding: 0;
+}
+
+.navLink {
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #152b3c;
+  font-family: "Crimson Text", Georgia, "Times New Roman", Times, serif;
+  transition: all 0.5s ease-in-out;
+}
+
+.navLink:hover {
+  color: #d46240;
+}
+
+.dropdownMenu {
+  left: auto !important;
+  right: 0;
+  transform: translateX(0%);
+  position: absolute;
+}
+
+.custom-toggler {
+  color: #152b3c !important;
+}
+
+.custom-toggler.navbar-toggler {
+  background-color: rgba(21, 43, 60, 0.19);
+}
+
+.titleOffCanvas {
+  font-family: "Work Sans", Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 2rem;
+}
+
+.orangeSpan {
+  color: #d46240;
+}
+
+.blueSpan {
+  color: #152b3c;
+}
+
+.navbarOffcanvas {
+  background-color: #fbf2da;
+}
+/* Footer */
+
+#footer {
+  background-color: #fbf2da;
+  padding-block: 1rem;
+  width: 100%;
+}
+
+.footerTitle {
+  color: #d46240;
+  font-family: "Work Sans", Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+
+.copyright {
+  font-family: "Crimson Text", Georgia, "Times New Roman", Times, serif;
+  font-size: 1rem;
+  transition: all 0.5s ease;
+  color: #152b3c;
+}
+
+/* Not Found */
+
+.notFoundTitle {
+  font-family: "Work Sans", Arial, Helvetica, sans-serif;
+  color: #152b3c;
+  font-size: 2.3rem;
+  font-weight: 300;
+}
+
+.notFoundBody {
+  font-size: 1.5rem;
+}
+
+.homeBtn {
+  font-family: "Work Sans", Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  border: none;
+  background-color: #d46240;
+  color: #fefefe;
+  padding-block: 0.7rem;
+  padding-inline: 1.3rem;
+  border-radius: 2px;
+  transition: all 0.5s ease;
+}
+
+.homeBtn:hover {
+  cursor: pointer;
+  background-color: #fefefe;
+  color: #d46240;
+  border: 2px solid #d46240;
+}
+
+/* Homepage */
+
+.homeTitle {
+  font-family: "Work Sans", Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  color: #152b3c;
+  font-size: 8rem;
+}
+
+.quotation {
+  font-style: italic;
+  color: #152b3c;
+  font-size: 1.5rem;
+  text-align: start;
+}
+
+.blockquoteFooter {
+  margin-top: 1rem;
+  font-family: "Work Sans", Arial, Helvetica, sans-serif;
+}
+
+.quoteIcon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  color: #152b3c;
+}
+
+.homeBody {
+  font-size: 1.5rem;
+}
+
+.animation {
+  width: 200px;
+  height: 200px;
+}
+
+/* Mobile */
+
+@media (max-width: 500px) {
+  .homeTitle {
+    font-size: 3.9rem;
   }
-  to {
-    transform: rotate(360deg);
+
+  .quotation {
+    font-size: 1.2rem;
+  }
+
+  .blockquote {
+    margin-inline: 1rem;
+  }
+
+  .blockquoteFooter {
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .quoteIcon {
+    font-size: 3rem;
+  }
+
+  .notFoundTitle {
+    font-size: 2rem;
+  }
+
+  .homeBody,
+  .notFoundBody {
+    font-size: 1.2rem;
+    margin-inline: 1.2rem;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
+/* Tablet */
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+@media (max-width: 768px) {
 }
