@@ -16,7 +16,7 @@ import { FiEdit } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
 import UpdateBookModal from "./UpdateBookModal";
 import AddBookModal from "./AddBookModal";
-import BookDetailsModal from "./BookDetailsModal"; // Importa il nuovo modale
+import BookDetailsModal from "./BookDetailsModal";
 import BookAnimation from "./BookAnimation.jsx";
 
 const BooksList = () => {
@@ -28,7 +28,7 @@ const BooksList = () => {
 
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
-  const [showDetailsModal, setShowDetailsModal] = useState(false); // Stato per il modale dei dettagli
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
 
   useEffect(() => {
