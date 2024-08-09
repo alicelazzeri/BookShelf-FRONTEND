@@ -9,22 +9,26 @@ import {
   addBook,
   generateBooksPDF,
 } from "../redux/actions/index.js";
-import { useParams } from "react-router-dom";
-import { Card, Button, Container, Row, Col } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
+import { Card, Container, Row, Col } from "react-bootstrap";
 import unavailable from "../assets/images/unavailable.png";
 import { FiEdit } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
 import UpdateBookModal from "./UpdateBookModal";
 import AddBookModal from "./AddBookModal";
+import BookDetailsModal from "./BookDetailsModal"; // Importa il nuovo modale
+import BookAnimation from "./BookAnimation.jsx";
 
 const BooksList = () => {
   const dispatch = useDispatch();
   const { userId } = useParams();
   const books = useSelector(state => state.books.items);
   const currentUser = useSelector(state => state.user.currentUser);
+  const navigate = useNavigate();
 
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showDetailsModal, setShowDetailsModal] = useState(false); // Stato per il modale dei dettagli
   const [selectedBook, setSelectedBook] = useState(null);
 
   useEffect(() => {
@@ -66,8 +70,28 @@ const BooksList = () => {
     dispatch(generateBooksPDF(userId));
   };
 
+  const handleShowDetails = book => {
+    setSelectedBook(book);
+    setShowDetailsModal(true);
+  };
+
   if (!currentUser) {
-    return <div className="text-center mt-5">Please log in to view your books.</div>;
+    return (
+      <>
+        <div className="d-flex flex-column align-items-center mt-5">
+          <p className="loginMsg mb-5 text-center">To access data, please login to your account.</p>
+          <button
+            className="loginBtn mb-5"
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
+            Login to your account
+          </button>
+          <BookAnimation />
+        </div>
+      </>
+    );
   }
 
   const formatDate = dateString => {
@@ -100,7 +124,7 @@ const BooksList = () => {
       {Array.isArray(books) && books.length > 0 ? (
         <Row>
           {books.map(book => (
-            <Col key={book.id} xs={12} sm={6} md={4} lg={4} className="mb-4">
+            <Col key={book.id} xs={12} md={6} lg={4} className="mb-4">
               <Card className="bookCard">
                 <div className="bookCoverContainer">
                   <div
@@ -138,7 +162,9 @@ const BooksList = () => {
                     </div>
                   </div>
 
-                  <button className="bookCardButton mt-4">Check Book Details</button>
+                  <button className="bookCardButton mt-4" onClick={() => handleShowDetails(book)}>
+                    Check Book Details
+                  </button>
                 </Card.Body>
               </Card>
             </Col>
@@ -146,8 +172,10 @@ const BooksList = () => {
         </Row>
       ) : (
         <div>
-          <p>No books found.</p>
-          <Button onClick={() => alert("Add Books functionality coming soon!")}>Add Books</Button>
+          <p className="loginMsg mb-5 text-center">No books found. Start adding your favorite books now!</p>
+          <button className="registerBtn mt-4" onClick={handleAddNewBook}>
+            Add new book
+          </button>
         </div>
       )}
 
@@ -158,6 +186,10 @@ const BooksList = () => {
           book={selectedBook}
           onSave={handleSaveChanges}
         />
+      )}
+
+      {selectedBook && (
+        <BookDetailsModal show={showDetailsModal} onHide={() => setShowDetailsModal(false)} book={selectedBook} />
       )}
 
       <AddBookModal show={showAddModal} onHide={() => setShowAddModal(false)} onSave={handleAddBook} />

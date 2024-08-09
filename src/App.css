@@ -147,6 +147,7 @@ body {
   background-color: #fbf2da;
   padding-block: 1rem;
   width: 100%;
+  margin-top: auto;
 }
 
 .footerTitle {
@@ -512,6 +513,36 @@ body {
   text-decoration: underline;
 }
 
+.loginMsg {
+  font-family: "Work Sans", Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 2rem;
+}
+
+/* Book Details Modal */
+
+.modalInfo {
+  font-family: "Work Sans", Arial, Helvetica, sans-serif;
+  font-size: 1.5rem;
+  color: #d46240;
+  font-weight: 400;
+}
+
+.modalSubInfo {
+  font-size: 1.3rem;
+}
+
+.plot {
+  font-style: italic;
+  margin-right: 2rem;
+}
+
+.modalCover {
+  height: auto;
+  width: 100%;
+  object-fit: contain;
+}
+
 /* Mobile */
 
 @media (max-width: 500px) {
@@ -588,6 +619,22 @@ body {
 
   .userEmail {
     font-size: 1rem;
+  }
+
+  .author {
+    margin-top: 1rem;
+  }
+
+  .modalColumn {
+    text-align: center;
+  }
+
+  .plot {
+    margin-right: 0;
+  }
+
+  .modalCover {
+    height: 350px;
   }
 }
 
