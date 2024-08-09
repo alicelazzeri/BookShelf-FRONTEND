@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, fetchAllUsers, addUser } from "../redux/actions/index.js";
 import { useNavigate } from "react-router-dom";
-import { Card, Container, Modal, Button, Form } from "react-bootstrap";
+import { Card, Container, Modal, Form } from "react-bootstrap";
 import logo from "../assets/images/logo.png";
 
 const LoginPage = () => {
@@ -61,9 +61,9 @@ const LoginPage = () => {
       </div>
       <div className="d-flex flex-column justify-content-center align-items-center gap-2 mb-4">
         <p className="mb-0">Don't have an account yet? </p>
-        <Button className="registerBtn" onClick={() => setShowModal(true)}>
+        <button className="registerBtn" onClick={() => setShowModal(true)}>
           Add new user
-        </Button>
+        </button>
       </div>
       <hr />
       <div className="mb-5">

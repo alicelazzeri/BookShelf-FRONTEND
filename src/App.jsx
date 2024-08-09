@@ -11,7 +11,6 @@ import { useSelector } from "react-redux";
 import LoadingSpinner from "./components/LoadingSpinner";
 import LoginPage from "./components/LoginPage";
 import BooksList from "./components/BooksList";
-import BookDetail from "./components/BookDetail";
 
 const App = () => {
   const isLoading = useSelector(state => state.loading.isLoading);
@@ -27,7 +26,6 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/user/:userId/books" element={<BooksList />} />
-          <Route path="/book/:id" element={<BookDetail />} />
         </Routes>
         <BookShelfFooter />
       </BrowserRouter>

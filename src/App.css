@@ -178,7 +178,8 @@ body {
 
 .homeBtn,
 .loginBtn,
-.registerBtn {
+.registerBtn,
+.bookCardButton {
   font-family: "Work Sans", Arial, Helvetica, sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
@@ -194,7 +195,8 @@ body {
 
 .homeBtn:hover,
 .loginBtn:hover,
-.registerBtn:hover {
+.registerBtn:hover,
+.bookCardButton:hover {
   cursor: pointer;
   background-color: #fefefe;
   color: #d46240;
@@ -341,6 +343,175 @@ body {
   border: 2px solid #2f906a;
 }
 
+/* Book list page */
+
+.bookListTitle {
+  font-family: "Work Sans", Arial, Helvetica, sans-serif;
+  font-size: 4rem;
+  font-weight: 300;
+}
+
+.bookCard {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.bookCard:hover {
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.bookCoverContainer {
+  position: relative;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fbf2da;
+  padding: 10px;
+}
+
+.bookCoverBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(5px);
+  opacity: 0.5;
+}
+
+.bookCover {
+  position: relative;
+  z-index: 1;
+  height: 90%;
+  object-fit: contain;
+  background-color: transparent;
+}
+
+.bookTitle {
+  font-family: "Work Sans", Arial, Helvetica, sans-serif;
+  color: #d46240;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.bookAuthor {
+  font-family: "Work Sans", Arial, Helvetica, sans-serif;
+  margin-bottom: auto;
+  font-weight: 400;
+  color: #838383;
+}
+
+.bookPlot {
+  font-family: "Crimson Text", Georgia, "Times New Roman", Times, serif;
+  margin-bottom: auto;
+  color: #152b3c;
+  font-weight: 400;
+}
+
+.bookReadings {
+  font-family: "Work Sans", Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  color: #152b3c;
+  margin-bottom: 1rem;
+}
+
+.cardBody {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.bookCardButton {
+  margin-top: auto;
+}
+
+.readingsBtn {
+  border: none;
+  background-color: transparent;
+  color: #2f906a;
+  font-family: "Work Sans", Arial, Helvetica, sans-serif;
+  transition: all 0.5s ease;
+}
+
+.readingsBtn:hover {
+  text-decoration: underline;
+}
+
+.updateBtn,
+.deleteBtn {
+  border: none;
+
+  padding-block: 0.3rem;
+  padding-inline: 0.6rem;
+  border-radius: 2px;
+  transition: all 0.5s ease;
+}
+
+.updateBtn:hover,
+.deleteBtn:hover {
+  cursor: pointer;
+}
+
+.updateBtn {
+  background-color: #479b7afe;
+  color: #fefefe;
+}
+
+.updateBtn:hover {
+  background-color: #fefefe;
+  color: #479b7afe;
+  border: 2px solid #479b7afe;
+}
+
+.deleteBtn {
+  background-color: #d64646fe;
+  color: #fefefe;
+}
+
+.deleteBtn:hover {
+  background-color: #fefefe;
+  color: #d64646fe;
+  border: 2px solid #d64646fe;
+}
+
+.inputLabel {
+  font-family: "Work Sans", Arial, Helvetica, sans-serif;
+  color: #d46240;
+  font-weight: 500;
+}
+
+.addingDate {
+  font-family: "Work Sans", Arial, Helvetica, sans-serif;
+  margin-bottom: auto;
+  font-weight: 400;
+  color: #838383;
+  font-size: 0.9rem;
+}
+
+.downloadPdfLink {
+  font-weight: 600;
+  color: #2f906a;
+  cursor: pointer;
+  transition: text-decoration 0.5s ease;
+}
+
+.downloadPdfLink:hover {
+  text-decoration: underline;
+}
+
 /* Mobile */
 
 @media (max-width: 500px) {
@@ -380,7 +551,8 @@ body {
     height: 40px;
   }
 
-  .loginTitle {
+  .loginTitle,
+  .bookListTitle {
     font-size: 3rem;
   }
 

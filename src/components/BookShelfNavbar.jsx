@@ -29,11 +29,11 @@ const BookShelfNavbar = () => {
       {["lg"].map(expand => (
         <Navbar id="navBar" key={expand} expand={expand} className="px-4 navbar-dark ">
           <Container fluid>
-            <Navbar.Brand className="navbarBrand mt-2">
-              <Link to="/" className="navLink" onClick={() => navigate("/")}>
+            <Link to="/" className="navLink appTitle">
+              <Navbar.Brand className="navbarBrand mt-2">
                 <img src={logo} id="navbarLogo" alt="Brand logo" width={90} height={90} />
-              </Link>
-            </Navbar.Brand>
+              </Navbar.Brand>
+            </Link>
 
             <Navbar.Toggle
               className="custom-toggler"
@@ -51,7 +51,7 @@ const BookShelfNavbar = () => {
               <Offcanvas.Header closeButton className="closeBtn">
                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`} className="navbarBrand">
                   <div className="d-flex">
-                    <Link to="/" className="navLink" onClick={() => navigate("/")}>
+                    <Link to="/" className="navLink">
                       <img src={logo} id="navbarLogo" alt="Brand logo" width={80} height={80} className="me-3" />
                     </Link>
                     <div className="mt-3">
@@ -73,8 +73,11 @@ const BookShelfNavbar = () => {
                     <Dropdown.Menu className="dropdownMenu">
                       {currentUser ? (
                         <>
+                          <div className="text-center my-2">
+                            <img className="rounded-circle" src={currentUser.avatarUrl} alt="User Avatar" />
+                          </div>
                           <Dropdown.Item className="dropdownItem navLink" as="div">
-                            Hi, {currentUser.name}
+                            Hi, {currentUser.firstName} {currentUser.lastName}
                           </Dropdown.Item>
                           <Dropdown.Item className="dropdownItem" as="div">
                             <Link className="navLink" to={`/user/${currentUser.id}/books`}>

@@ -25,6 +25,10 @@ export const UPDATE_BOOK_SUCCESS = "UPDATE_BOOK_SUCCESS";
 export const UPDATE_BOOK_FAILURE = "UPDATE_BOOK_FAILURE";
 export const DELETE_BOOK_SUCCESS = "DELETE_BOOK_SUCCESS";
 export const DELETE_BOOK_FAILURE = "DELETE_BOOK_FAILURE";
+export const INCREMENT_READINGS_SUCCESS = "INCREMENT_READINGS_SUCCESS";
+export const INCREMENT_READINGS_FAILURE = "INCREMENT_READINGS_FAILURE";
+export const GENERATE_PDF_SUCCESS = "GENERATE_PDF_SUCCESS";
+export const GENERATE_PDF_FAILURE = "GENERATE_PDF_FAILURE";
 
 // ACTION CREATORS
 
@@ -51,10 +55,15 @@ export const updateBookSuccess = book => ({ type: UPDATE_BOOK_SUCCESS, payload: 
 export const updateBookFailure = error => ({ type: UPDATE_BOOK_FAILURE, payload: error });
 export const deleteBookSuccess = bookId => ({ type: DELETE_BOOK_SUCCESS, payload: bookId });
 export const deleteBookFailure = error => ({ type: DELETE_BOOK_FAILURE, payload: error });
+export const incrementReadingsSuccess = book => ({ type: INCREMENT_READINGS_SUCCESS, payload: book });
+export const incrementReadingsFailure = error => ({ type: INCREMENT_READINGS_FAILURE, payload: error });
+export const generatePdfSuccess = () => ({ type: GENERATE_PDF_SUCCESS });
+export const generatePdfFailure = error => ({ type: GENERATE_PDF_FAILURE, payload: error });
 
 // THUNKS
 
 // Users
+
 // Fetch all users
 export const fetchAllUsers = () => async dispatch => {
   dispatch(startLoading());
@@ -91,11 +100,12 @@ export const addUser = user => async dispatch => {
 };
 
 // Books
+
 // Fetch all books
 export const fetchBooks = () => async dispatch => {
   dispatch(startLoading());
   try {
-    const response = await fetch("http://localhost:8080/api/books");
+    const response = await fetch(`${API}/books`);
     const data = await response.json();
     dispatch(getBooksSuccess(data));
   } catch (error) {
@@ -109,10 +119,10 @@ export const fetchBooks = () => async dispatch => {
 export const fetchBooksByUserId = userId => async dispatch => {
   dispatch(startLoading());
   try {
-    const response = await fetch(`${API}/books?userId=${userId}`);
+    const response = await fetch(`${API}/books/user/${userId}`);
     if (!response.ok) throw new Error("Failed to fetch books");
-    const books = await response.json();
-    dispatch(getBooksSuccess(books));
+    const data = await response.json();
+    dispatch(getBooksSuccess(data.content));
   } catch (error) {
     dispatch(getBooksFailure(error.message));
   } finally {
@@ -136,19 +146,36 @@ export const fetchBookById = bookId => async dispatch => {
 };
 
 // Add a new book
-export const addBook = (book, userId) => async dispatch => {
+export const addBook = (bookData, userId) => async dispatch => {
   dispatch(startLoading());
   try {
+    // Step 1: Aggiungi il libro senza la copertina
     const response = await fetch(`${API}/books?userId=${userId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(book),
+      body: JSON.stringify(bookData),
     });
+
     if (!response.ok) throw new Error("Failed to add book");
     const newBook = await response.json();
     dispatch(addBookSuccess(newBook));
+
+    // Step 2: Se c'è una copertina, esegui l'upload separato della copertina
+    if (bookData.bookCoverFile) {
+      const formData = new FormData();
+      formData.append("bookCoverFile", bookData.bookCoverFile);
+
+      const coverResponse = await fetch(`${API}/books/${newBook.id}/cover`, {
+        method: "PUT",
+        body: formData,
+      });
+
+      if (!coverResponse.ok) throw new Error("Failed to upload book cover");
+      const updatedBook = await coverResponse.json();
+      dispatch(updateBookSuccess(updatedBook));
+    }
   } catch (error) {
     dispatch(addBookFailure(error.message));
   } finally {
@@ -157,19 +184,36 @@ export const addBook = (book, userId) => async dispatch => {
 };
 
 // Update an existing book
-export const updateBook = (bookId, updatedBook) => async dispatch => {
+export const updateBook = (bookId, bookData) => async dispatch => {
   dispatch(startLoading());
   try {
+    // Step 1: Aggiorna il libro senza la copertina
     const response = await fetch(`${API}/books/${bookId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(updatedBook),
+      body: JSON.stringify(bookData),
     });
+
     if (!response.ok) throw new Error("Failed to update book");
-    const book = await response.json();
-    dispatch(updateBookSuccess(book));
+    const updatedBook = await response.json();
+    dispatch(updateBookSuccess(updatedBook));
+
+    // Step 2: Se c'è una nuova copertina, esegui l'upload separato della copertina
+    if (bookData.bookCoverFile) {
+      const formData = new FormData();
+      formData.append("bookCoverFile", bookData.bookCoverFile);
+
+      const coverResponse = await fetch(`${API}/books/${bookId}/cover`, {
+        method: "PUT",
+        body: formData,
+      });
+
+      if (!coverResponse.ok) throw new Error("Failed to upload book cover");
+      const finalUpdatedBook = await coverResponse.json();
+      dispatch(updateBookSuccess(finalUpdatedBook));
+    }
   } catch (error) {
     dispatch(updateBookFailure(error.message));
   } finally {
@@ -181,12 +225,53 @@ export const updateBook = (bookId, updatedBook) => async dispatch => {
 export const deleteBook = bookId => async dispatch => {
   dispatch(startLoading());
   try {
-    await fetch(`${API}/books/${bookId}`, {
+    const response = await fetch(`${API}/books/${bookId}`, {
       method: "DELETE",
     });
+    if (!response.ok) throw new Error("Failed to delete book");
     dispatch(deleteBookSuccess(bookId));
   } catch (error) {
     dispatch(deleteBookFailure(error.message));
+  } finally {
+    dispatch(stopLoading());
+  }
+};
+
+// Increment the number of completed readings for a book
+export const incrementReadings = bookId => async dispatch => {
+  dispatch(startLoading());
+  try {
+    const response = await fetch(`${API}/books/${bookId}/increment-readings`, {
+      method: "PUT",
+    });
+    if (!response.ok) throw new Error("Failed to increment readings");
+    const updatedBook = await response.json();
+    dispatch(incrementReadingsSuccess(updatedBook));
+  } catch (error) {
+    dispatch(incrementReadingsFailure(error.message));
+  } finally {
+    dispatch(stopLoading());
+  }
+};
+
+// Generate books list PDF
+export const generateBooksPDF = userId => async dispatch => {
+  dispatch(startLoading());
+  try {
+    const response = await fetch(`${API}/books/generate-pdf?userId=${userId}`, {
+      method: "GET",
+    });
+    if (!response.ok) throw new Error("Failed to generate PDF");
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "user_books.pdf");
+    document.body.appendChild(link);
+    link.click();
+    dispatch(generatePdfSuccess());
+  } catch (error) {
+    dispatch(generatePdfFailure(error.message));
   } finally {
     dispatch(stopLoading());
   }
