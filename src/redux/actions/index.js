@@ -149,7 +149,6 @@ export const fetchBookById = bookId => async dispatch => {
 export const addBook = (bookData, userId) => async dispatch => {
   dispatch(startLoading());
   try {
-    // Step 1: Aggiungi il libro senza la copertina
     const response = await fetch(`${API}/books?userId=${userId}`, {
       method: "POST",
       headers: {
@@ -162,7 +161,6 @@ export const addBook = (bookData, userId) => async dispatch => {
     const newBook = await response.json();
     dispatch(addBookSuccess(newBook));
 
-    // Step 2: Se c'è una copertina, esegui l'upload separato della copertina
     if (bookData.bookCoverFile) {
       const formData = new FormData();
       formData.append("bookCoverFile", bookData.bookCoverFile);
@@ -187,7 +185,6 @@ export const addBook = (bookData, userId) => async dispatch => {
 export const updateBook = (bookId, bookData) => async dispatch => {
   dispatch(startLoading());
   try {
-    // Step 1: Aggiorna il libro senza la copertina
     const response = await fetch(`${API}/books/${bookId}`, {
       method: "PUT",
       headers: {
@@ -200,7 +197,6 @@ export const updateBook = (bookId, bookData) => async dispatch => {
     const updatedBook = await response.json();
     dispatch(updateBookSuccess(updatedBook));
 
-    // Step 2: Se c'è una nuova copertina, esegui l'upload separato della copertina
     if (bookData.bookCoverFile) {
       const formData = new FormData();
       formData.append("bookCoverFile", bookData.bookCoverFile);
@@ -237,7 +233,6 @@ export const deleteBook = bookId => async dispatch => {
   }
 };
 
-// Increment the number of completed readings for a book
 export const incrementReadings = bookId => async dispatch => {
   dispatch(startLoading());
   try {

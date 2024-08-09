@@ -19,8 +19,8 @@ const UpdateBookModal = ({ show, onHide, book, onSave }) => {
 
   const handleSave = async () => {
     try {
-      await onSave(bookDetails); // Invoca il thunk `updateBook` con i dati del libro
-      onHide(); // Nasconde il modal solo dopo che il libro è stato aggiornato correttamente
+      await onSave(bookDetails);
+      onHide();
     } catch (error) {
       console.error("Failed to update book:", error);
     }

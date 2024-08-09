@@ -25,8 +25,8 @@ const AddBookModal = ({ show, onHide, onSave }) => {
 
   const handleSave = async () => {
     try {
-      await onSave(bookData); // Invoca il thunk `addBook` con i dati del libro
-      onHide(); // Nasconde il modal solo dopo che il libro è stato salvato correttamente
+      await onSave(bookData);
+      onHide();
     } catch (error) {
       console.error("Failed to add book:", error);
     }
